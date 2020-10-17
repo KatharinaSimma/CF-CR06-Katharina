@@ -1,4 +1,8 @@
-let places = [];
+// ====== Each Class gets an Array ========================================
+let places = []; // all classes
+let locations = [];
+let restaurants = [];
+let events = [];
 // ====== Base Class ========================================
 class Locations {
     constructor(name, description, zip, address, img) {
@@ -39,6 +43,7 @@ class Restaurants extends Locations {
         this.phone = phone;
         this.website = website;
         this.kitchen = kitchen;
+        restaurants.push(this);
         //places.push(this); // is inherited from base class :-)
     }
     renderAddress() {
@@ -59,6 +64,7 @@ class Events extends Locations {
         this.date = date;
         this.time = time;
         this.price = price;
+        events.push(this);
     }
     renderEvent() {
         return `
@@ -70,7 +76,7 @@ class Events extends Locations {
         return this.renderTheBeginning() + this.renderEvent() + this.renderTheEnd(); // compose your output!
     }
 }
-// ====== Define Members of Class ==============================
+// ====== Define Members of Classes ==============================
 // ====== Define Members of Locations ==============================
 var karlsplatz = new Locations("Karlsplatz", "One of the hippest places in the city!", 1040, "Karlsplatz 1", "./img/karlskirche_1920_1280.jpg");
 var schönbrunn = new Locations("Schönbrunn", "Schönbrunn Park is quite beautiful.", 1130, "Schloss Schönbrunn", "./img/vienna-5164602_1920.jpg");
@@ -83,7 +89,61 @@ var fuz = new Restaurants("Fett + Zucker", "This is my favorite place for (vegan
 var python = new Events("Python Fundamentals", "Learn the fundamentals of Python.", 1050, "Kettenbrückeng 23/2/12", "./img/animal-1866944_1920.jpg", "Oct 17 2020", "10:30", "Free Event!");
 var python = new Events("World Press Photo 2020", "Exhibition: The Stories that Matter", 1070, "Westbahnstr 40", "./img/lens-1209823_1920.jpg", "Sept 11 - Nov 8 2020", "Daily, 11:00-19:00", "9 €");
 console.table(places);
+console.table(restaurants);
+console.table(events);
 // ======= Render content ===============================================
-for (let i in places) {
-    $("#cards").append(places[i].render());
-}
+$(document).ready(function () {
+    for (let i in places) {
+        $("#cards").append(places[i].render());
+    }
+    // ======= Render on click Events ===============================================
+    // Show all cards
+    $("#all").on('click', function () {
+        console.log("beep");
+        $("#cards").empty();
+        for (let i in places) {
+            $("#cards").append(places[i].render());
+        }
+    });
+    // Show all Places
+    // the array locations is created from the base class it containts ALL objects, here we push all objects that are locations (i.e. not events or restaurants) into the array
+    places.forEach(function (value) {
+        if (value instanceof Events == false && value instanceof Restaurants == false) {
+            locations.push(value);
+        }
+        ;
+    });
+    console.table(locations);
+    //then we continue to show places
+    $("#locations").on('click', function () {
+        $("#cards").empty();
+        for (let i in locations) {
+            $("#cards").append(locations[i].render());
+        }
+    });
+    // Show restaurants
+    $("#restaurants").on('click', function () {
+        $("#cards").empty();
+        for (let i in restaurants) {
+            $("#cards").append(restaurants[i].render());
+        }
+    });
+    // Show events
+    $("#events").on('click', function () {
+        $("#cards").empty();
+        for (let i in events) {
+            $("#cards").append(events[i].render());
+        }
+    });
+});
+// ======= Footer effect for katharina's avatar ===============================================
+var img = document.getElementById("imageOne");
+//$("#imageOne").on('hover', function())
+// add event listener mouse on image
+img.addEventListener("mouseover", function () {
+    img.src = './img/katharina2.png';
+}, false);
+// add event listener mouse off image
+img.addEventListener("mouseout", function () {
+    img.src = './img/katharina.png';
+}, false);

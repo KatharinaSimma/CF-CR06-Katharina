@@ -1,4 +1,12 @@
-let places:Array<any> = [];
+
+// ====== Each Class gets an Array ========================================
+let places:Array<any> = []; // all classes
+
+let locations:Array<any> = [];
+let restaurants:Array<any> = [];
+let events:Array<any> = [];
+
+
 
 // ====== Base Class ========================================
 
@@ -17,6 +25,7 @@ class Locations {
         this.img = img;
      
         places.push(this);
+        
     }
 
     renderTheBeginning(){
@@ -58,6 +67,7 @@ class Restaurants extends Locations{
         this.website = website;
         this.kitchen = kitchen;
 
+        restaurants.push(this);
         //places.push(this); // is inherited from base class :-)
     }
 
@@ -88,6 +98,8 @@ class Events extends Locations{
         this.date = date;
         this.time = time;
         this.price = price;
+
+        events.push(this);
     }
 
     renderEvent(){
@@ -102,8 +114,7 @@ class Events extends Locations{
     }
 }
 
-// ====== Define Members of Class ==============================
-
+// ====== Define Members of Classes ==============================
 // ====== Define Members of Locations ==============================
 
 var karlsplatz = new Locations(
@@ -188,11 +199,79 @@ var python = new Events(
 )
 
 console.table(places);
+console.table(restaurants);
+console.table(events);
 
 
 // ======= Render content ===============================================
 
-for (let i in places){    
-    $("#cards").append(places[i].render());
-}
+$(document).ready(function(){
 
+    for (let i in places){    
+        $("#cards").append(places[i].render());
+    }
+
+    // ======= Render on click Events ===============================================
+
+
+    // Show all cards
+    $("#all").on('click', function(){
+        console.log("beep")
+        $("#cards").empty();
+        for (let i in places){    
+            $("#cards").append(places[i].render());
+        }
+    });
+
+    // Show all Places
+
+    // the array locations is created from the base class it containts ALL objects, here we push all objects that are locations (i.e. not events or restaurants) into the array
+    places.forEach(function(value){
+        if (value instanceof Events == false && value instanceof Restaurants == false){
+            locations.push(value);
+        };
+    });
+    console.table(locations)
+    //then we continue to show places
+    $("#locations").on('click', function(){
+        $("#cards").empty();
+        for (let i in locations){    
+            $("#cards").append(locations[i].render());
+        }
+    });
+
+    // Show restaurants
+    $("#restaurants").on('click', function(){
+        $("#cards").empty();
+        for (let i in restaurants){    
+            $("#cards").append(restaurants[i].render());
+        }
+    });
+
+    // Show events
+    $("#events").on('click', function(){
+        $("#cards").empty();
+        for (let i in events){    
+            $("#cards").append(events[i].render());
+        }
+    });
+
+
+});
+
+// ======= Footer effect for katharina's avatar ===============================================
+
+var img = document.getElementById("imageOne");
+
+//$("#imageOne").on('hover', function())
+
+
+// add event listener mouse on image
+img.addEventListener("mouseover", function(){
+    img.src='./img/katharina2.png';
+}, false);
+
+// add event listener mouse off image
+img.addEventListener("mouseout", function(){
+    img.src='./img/katharina.png';
+}, false);

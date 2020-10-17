@@ -16,44 +16,26 @@
 </head>
 <body>
     <div class="container-fluid">
+
+
         <header>
-            <div class="collapse show bg-info " id="navbarHeader">
-            <div class="container ">
-                <div class="row">
-                <div class="col-sm-8 col-md-7 py-4">
-                    <h4 class="text-white">About this site</h4>
-                    <p class="text-white">This travel blog is about the beautiful city of Vienna. In 2020 you could not travel far. So I went and explored my onw City. These ar my favorite places to hang out, eat and experience :-)</p>
-                </div>
-                <div class="col-sm-4 offset-md-1 py-4">
-                    <h4 class="text-white">Contact</h4>
-                    <ul class="list-unstyled ">
-                    <li><a href="https://www.linkedin.com/in/katharina-simma-72b6721b3/" class="text-white"><i class="fab fa-linkedin"></i></a></li>
-                    <li><a href="https://github.com/KatharinaSimma" class="text-white"><i class="fab fa-github"></i></a></li>
-                    <li><a href="#" class="text-white"><i class="far fa-envelope"></i></a></li>
-                    </ul>
-                </div>
-                </div>
-            </div>
-            </div>
             <div class="navbar navbar-dark bg-info box-shadow">
                 <div class="container d-flex justify-content-around">
-                    <a href="#" class="navbar-brand d-flex flex-column align-items-center">
-                        <strong>Places</strong>
+
+                    <a id="all" href="#" class="navbar-brand d-flex align-items-center">
+                        <strong>Show all</strong>
                     </a>
-                    <a href="#" class="navbar-brand d-flex align-items-center">
+                    <a id="locations" href="#" class="navbar-brand d-flex flex-column align-items-center">
+                        <strong>Locations</strong>
+                    </a>
+                    <a id="restaurants" href="#" class="navbar-brand d-flex align-items-center">
                         <strong>Restaurants</strong>
                     </a>
-                    <a href="#" class="navbar-brand d-flex align-items-center">
+                    <a id="events" href="#" class="navbar-brand d-flex align-items-center">
                         <strong>Events</strong>
                     </a>
-                    <button class="navbar-toggler align-right" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="true" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                    </button>
                 </div>
-            </div>
-            <!--<div>
-                <img src="./img/vienna-2997032_1920.jpg" class="img-fluid w-100" alt="Responsive image">
-            </div>-->
+
         </header>
 
         <main>
@@ -63,6 +45,40 @@
                 </div>
           
         </main>
+
+        <footer class="bg-info">
+                <div class="container bg-info ">
+                    <div class="row">
+                        <div class="col-sm-8 col-md-7 py-4">
+                            <h4 class="text-white">About this site</h4>
+                            <p class="text-white">This travel blog is about the beautiful city of Vienna. In 2020 you could not travel far. So I went and explored my onw City. These ar my favorite places to hang out, eat and experience :-)</p>
+                        </div>
+
+
+
+                        <div class="col-sm-4 offset-md-1 py-4 row">
+
+                            
+
+                            <div class="col">
+                                <h4 class="text-white">Contact</h4>
+                                                            
+                                <ul class="list-unstyled py-4">
+                                    <li><a href="https://www.linkedin.com/in/katharina-simma-72b6721b3/" class="text-white"><i class="fab fa-linkedin"></i></a></li>
+                                    <li><a href="https://github.com/KatharinaSimma" class="text-white"><i class="fab fa-github"></i></a></li>
+                                    <li><a href="mailto:katharina.simma@diebin.at" class="text-white"><i class="far fa-envelope"></i></a></li>
+                                </ul>
+                            </div>  
+
+                            <div class ="col d-none d-lg-block box" id="teamSingle">
+                                <img id="imageOne" name="katharina" class="teamImage visibleImage w-100" src="./img/katharina.png"> 
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div> 
+        </footer>
             
     </div>
 
