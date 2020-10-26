@@ -16,13 +16,15 @@ class Locations {
     zip:number;
     address:string;
     img:string;
+    dateVisited:Date;
     
-    constructor(name, description, zip, address, img){
-        this.name =name;
+    constructor(name, description, zip, address, img, Date){
+        this.name = name;
         this.description = description;
         this.zip = zip;
         this.address = address;
         this.img = img;
+        this.dateVisited = Date;
      
         places.push(this);
         
@@ -30,7 +32,7 @@ class Locations {
 
     renderTheBeginning(){
         return  `        
-        <div class="col-sm-12 col-md-6 col-lg-3">
+        <div class="col-sm-12 col-md-6 col-lg-4">
             <div class="card my-4 box-shadow">
                 <img class="card-img-top w-100 d-none d-md-block" style="object-fit:scale-down" data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail" alt="Thumbnail [100%x225]" src="${this.img}" data-holder-rendered="true">
                 <div class="card-body">
@@ -42,7 +44,7 @@ class Locations {
     }
 
     renderTheEnd(){
-        return  `        
+        return  `       <br><span><small> Last visited: ${this.dateVisited} </small></span>        
                     </div>
                 </div>
             </div>
@@ -61,8 +63,8 @@ class Restaurants extends Locations{
     website:string;
     kitchen:string;
 
-    constructor(name, description, zip, address, img, phone, website, kitchen){
-        super(name, description, zip, address, img); // call the constructor of the parent class
+    constructor(name, description, zip, address, img, Date, phone, website, kitchen){
+        super(name, description, zip, address, img, Date); // call the constructor of the parent class
         this.phone = phone;
         this.website = website;
         this.kitchen = kitchen;
@@ -86,15 +88,15 @@ class Restaurants extends Locations{
 }
 
 
-// ====== Derived Class I/ ========================================
+// ====== Derived Class II ========================================
 
 class Events extends Locations{
     date:string;
     time:string;
     price:any;
 
-    constructor(name, description, zip, address, img, date, time, price){
-        super(name, description, zip, address, img); // call the constructor of the parent class
+    constructor(name, description, zip, address, img, Date, date, time, price){
+        super(name, description, zip, address, img, Date); // call the constructor of the parent class
         this.date = date;
         this.time = time;
         this.price = price;
@@ -122,7 +124,8 @@ var karlsplatz = new Locations(
     "One of the hippest places in the city!", 
     1040, 
     "Karlsplatz 1", 
-    "./img/karlskirche_1920_1280.jpg"
+    "./img/karlskirche_1920_1280.jpg",
+    new Date(2018,12,17,3,24,0)
 );
 
 var schönbrunn = new Locations(
@@ -130,7 +133,8 @@ var schönbrunn = new Locations(
     "Schönbrunn Park is quite beautiful.", 
     1130, 
     "Schloss Schönbrunn", 
-    "./img/vienna-5164602_1920.jpg"
+    "./img/vienna-5164602_1920.jpg",
+    new Date(2019,11,17,3,24,0)
 );
 
 var belevedere = new Locations(
@@ -138,7 +142,8 @@ var belevedere = new Locations(
     "Take a nice walk in the park and enjoy the Botanical Gardens", 
     1030, 
     "Prinz Eugen-Strasse 27", 
-    "./img/versailles-1887301_1920.jpg"
+    "./img/versailles-1887301_1920.jpg",
+    new Date(2020,11,17,3,24,0)
 );
 
 var zoo = new Locations(
@@ -146,7 +151,8 @@ var zoo = new Locations(
     "Yes, there are Elephants and other fascinating animals!", 
     1130, 
     "Maxingstraße 13", 
-    "./img/elephant-4464089_1920.jpg"
+    "./img/elephant-4464089_1920.jpg",
+    new Date(2017,11,17,3,24,0)
 );
 
 
@@ -158,6 +164,7 @@ var bibim = new Restaurants(
     1030,
     "Rennweg 60",
     "./img/bibimbap-4887394_1920.jpg",
+    new Date(2016,11,17,3,24,0),
     "+43 1 9922400",
     "https://www.facebook.com/viennabibim",
     "Korean Food"
@@ -169,6 +176,7 @@ var fuz = new Restaurants(
     1020,
     "Hollandstr 60",
     "./img/food-2940553_1920.jpg",
+    new Date(2015,11,17,3,24,0),
     "+43 699 11660092",
     "http://www.fettundzucker.at/index.html",
     "Coffee & Cake"
@@ -182,6 +190,7 @@ var python = new Events(
     1050,
     "Kettenbrückeng 23/2/12",
     "./img/animal-1866944_1920.jpg",
+    new Date(2014,11,17,3,24,0),
     "Oct 17 2020",
     "10:30",
     "Free Event!"
@@ -193,6 +202,7 @@ var python = new Events(
     1070,
     "Westbahnstr 40",
     "./img/lens-1209823_1920.jpg",
+    new Date(2013,11,17,3,24,0),
     "Sept 11 - Nov 8 2020",
     "Daily, 11:00-19:00",
     "9 €"
@@ -213,17 +223,18 @@ $(document).ready(function(){
 
     // ======= Render on click Events ===============================================
 
-
     // Show all cards
+    places.sort((a,b) => a.dateVisited - b.dateVisited); // sort places first
     $("#all").on('click', function(){
-        console.log("beep")
         $("#cards").empty();
+        places.reverse();           //then reverse on every click
         for (let i in places){    
             $("#cards").append(places[i].render());
         }
     });
 
-    // Show all Places
+   
+    // Show all Locations
 
     // the array locations is created from the base class it containts ALL objects, here we push all objects that are locations (i.e. not events or restaurants) into the array
     places.forEach(function(value){
@@ -231,26 +242,31 @@ $(document).ready(function(){
             locations.push(value);
         };
     });
-    console.table(locations)
+    locations.sort((a,b) => a.dateVisited - b.dateVisited);
     //then we continue to show places
     $("#locations").on('click', function(){
         $("#cards").empty();
+        locations.reverse();
         for (let i in locations){    
             $("#cards").append(locations[i].render());
         }
     });
 
     // Show restaurants
+    restaurants.sort((a,b) => a.dateVisited - b.dateVisited);
     $("#restaurants").on('click', function(){
         $("#cards").empty();
+        restaurants.reverse();
         for (let i in restaurants){    
             $("#cards").append(restaurants[i].render());
         }
     });
 
     // Show events
+    events.sort((a,b) => a.dateVisited - b.dateVisited);
     $("#events").on('click', function(){
         $("#cards").empty();
+        events.reverse();
         for (let i in events){    
             $("#cards").append(events[i].render());
         }
@@ -261,9 +277,9 @@ $(document).ready(function(){
 
 // ======= Footer effect for katharina's avatar ===============================================
 
-var img = document.getElementById("imageOne");
+/* var img = document.getElementById("imageOne");
 
-//$("#imageOne").on('hover', function())
+$("#imageOne").on('hover', function())
 
 
 // add event listener mouse on image
@@ -275,3 +291,4 @@ img.addEventListener("mouseover", function(){
 img.addEventListener("mouseout", function(){
     img.src='./img/katharina.png';
 }, false);
+ */
