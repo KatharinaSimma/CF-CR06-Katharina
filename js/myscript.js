@@ -144,18 +144,13 @@ $(document).ready(function () {
     });
 });
 // ======= Footer effect for katharina's avatar ===============================================
-/* var img = document.getElementById("imageOne");
-
-$("#imageOne").on('hover', function())
-
-
+// define variable for the location of the image
+var img = document.getElementById("imageOne");
 // add event listener mouse on image
-img.addEventListener("mouseover", function(){
-    img.src='./img/katharina2.png';
+img.addEventListener("mouseover", function () {
+    img.setAttribute("src", "./img/katharina2.png");
 }, false);
-
 // add event listener mouse off image
-img.addEventListener("mouseout", function(){
-    img.src='./img/katharina.png';
+img.addEventListener("mouseout", function () {
+    img.setAttribute("src", "./img/katharina.pngt");
 }, false);
- */ 

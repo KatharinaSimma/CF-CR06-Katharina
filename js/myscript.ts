@@ -225,6 +225,7 @@ $(document).ready(function(){
 
     // Show all cards
     places.sort((a,b) => a.dateVisited - b.dateVisited); // sort places first
+    
     $("#all").on('click', function(){
         $("#cards").empty();
         places.reverse();           //then reverse on every click
@@ -277,18 +278,15 @@ $(document).ready(function(){
 
 // ======= Footer effect for katharina's avatar ===============================================
 
-/* var img = document.getElementById("imageOne");
-
-$("#imageOne").on('hover', function())
-
+// define variable for the location of the image
+var img = document.getElementById("imageOne");
 
 // add event listener mouse on image
 img.addEventListener("mouseover", function(){
-    img.src='./img/katharina2.png';
+    img.setAttribute("src","./img/katharina2.png");
 }, false);
 
 // add event listener mouse off image
 img.addEventListener("mouseout", function(){
-    img.src='./img/katharina.png';
+    img.setAttribute("src","./img/katharina.pngt");
 }, false);
- */
